@@ -1,11 +1,14 @@
-import random 
+# -*- coding: utf-8 -*-
+import random
 from card import Card
 from global_values import*
 
 class Deck():
 	def __init__(self):
-		self.card_list=[Card(VALUE_LIST[i],COLOR_LIST[j]) for i in range(8) for j in range(4)]
+		self.card_list=[Card(i,j) for i in range(8) for j in range(4)]
 
+  	def upload_deck(self,list_cards):
+        	self.card_list = list_cards
 
 	def shuffle(self):
 		random.shuffle(self.card_list)
@@ -27,8 +30,4 @@ class Deck():
 				self.card_list=self.card_list[card_number:]
 		return lots
 		
-
-	
-
-
 

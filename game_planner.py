@@ -1,48 +1,107 @@
+# -*- coding: utf-8 -*-
 
+#class
 from player import Player
 from player import Players
-from make_binddings import make_binddings
 from round_coinche import Round_coinche
+from deck import Deck
+
+#constant
 from global_values import *
+
+#packages
 import random
+import os 
 
 
 
-
+def binding_to_string(binding):
+    if binding == None:
+        return("Pass")
+    else : 
+        return(CONTRACT_VALUES[binding[1]]+" "+COLOR_LIST[0])
+        
 
 
 
 def Game_planner():
-	players = Players()
-	#teams = [[0,2],[1,3]]
-	teams_points = [0,0]
-	dealer = random.randint(0,3)
-	print(dealer)
-	while teams_points[0]<2000 and teams_points[1]<2000 : 
-		contracted_team,contract = make_binddings(dealer) #a team (0 or 1) and a value of contract (couleur,valeur)
-		current_round = Round_coinche(contract[0],contract[1],contracted_team,dealer,players)
-		for i in range(8):
-			current_round.play_pli()
-		dealer = (dealer + 1)%4
-			
+    players = Players()
+    players.order_players()
+    teams_points = [0,0] #[N_S : 0, E_O :1]
+    dealer = random.randint(0,3)
+    cards = Deck()
+    cards.shuffle()
+    while teams_points[0]<2000 and teams_points[1]<2000 :
+        
+        #Cards distribution
+        lots = cards.distribute_deck()
+        for i in range (4) :
+            players[(dealer + 1 + i)%4].card = lots[i]
+        players.order_cards()
+        
+        #Binddings
+        bindings = []
+        finisher = -1 #on first tour, 4 people have to pass so that binddings end
+        print("ooooooooooooooooooo"+"\n"+"o    BINDINGS     o" + "\n""ooooooooooooooooooo")
+
+        speaker = (dealer+1)%4
+        #DEBBUG = False
+        while finisher<3:
+        #while not DEBBUG :
+            contract = None
+            contracted_team = None
+            os.system('cls' if os.name == 'nt' else 'clear')
+            raw_input("\n"+"Player "+from_number_to_place[speaker]+" it's your turn, type enter to see your cards :" )
+            print(table_game(bindings,(dealer+1)%4))
+            print(players[speaker].card)
+            print("\n"+"Player "+from_number_to_place[speaker]+" do you want to make a binding ? Yes (1) No (2)")
+            wanna_play = input()
+            if wanna_play == 1 :
+                print SHOW_BINDINGS
+                contract = input()
+                contracted_team = from_number_to_team[speaker] #can take value 0 or 1 
+                finisher = 0
+                #DEBBUG = True
+
+            else :
+                finisher += 1
+            bindings.append(binding_to_string(contract))
+                    
+            speaker = (speaker + 1)%4
+        
+        if contract!=None :      
+        #Round
+            print("oooooooooooooo"+"\n"+"o    GAME     o" + "\n""oooooooooooooo")
+            current_round = Round_coinche(contract[0],contract[1],contracted_team,dealer,players)
+            round_points, list_cards = current_round.play_round()
+            cards.upload_deck(list_cards)
+            teams_points[0] += round_points[0]
+            teams_points[1] += round_points[1]
+		#update
+            dealer = (dealer + 1)%4
+            print(teams_points)
 		
-		
-		
-		
-		
-		
-		dealer += 1 
-	
+        else : 
+            print("Nobody made a binding, let's distribute again")
 
 
+"""players = Players()
+teams_points = [0,0]
+dealer = random.randint(0,3)
+cards = Deck()
+cards.shuffle()
+lots = cards.distribute_deck()
+for i in range (4) :
+    players[(dealer + 1 + i)%4].card = lots[i]
 
+speaker = (dealer+1)%4
 
-
-
+raw_input("\n"+"Player "+from_number_to_place[speaker]+" it's your turn, type enter to se your cards :" )
+print(players[speaker].card)
+print("\n"+"Player "+from_number_to_place[speaker]+" do you want to make a binding ? Yes (1) No (2)")
+"""
 Game_planner()
 
 
 
-	
-	
-	
+        
