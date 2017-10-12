@@ -19,7 +19,7 @@ def binding_to_string(binding):
     if binding == None:
         return("Pass")
     else : 
-        return(CONTRACT_VALUES[binding[1]]+" "+COLOR_LIST[0])
+        return(CONTRACT_VALUES[binding[1]]+" "+COLOR_LIST[binding[0]])
         
 
 
@@ -46,12 +46,14 @@ def Game_planner():
 
         speaker = (dealer+1)%4
         #DEBBUG = False
+        contract = None
+        contracted_team = None
         while finisher<3:
         #while not DEBBUG :
-            contract = None
-            contracted_team = None
+            
             os.system('cls' if os.name == 'nt' else 'clear')
             raw_input("\n"+"Player "+from_number_to_place[speaker]+" it's your turn, type enter to see your cards :" )
+            print finisher
             print(table_game(bindings,(dealer+1)%4))
             print(players[speaker].card)
             print("\n"+"Player "+from_number_to_place[speaker]+" do you want to make a binding ? Yes (1) No (2)")
@@ -75,6 +77,9 @@ def Game_planner():
             current_round = Round_coinche(contract[0],contract[1],contracted_team,dealer,players)
             round_points, list_cards = current_round.play_round()
             cards.upload_deck(list_cards)
+            print("Where do you want to cut ? Choose a position betwenn 1 and 31"+"\n"+"______________________________________________________________________")
+            coupe = input()
+            cards.cut(coupe)
             teams_points[0] += round_points[0]
             teams_points[1] += round_points[1]
 		#update

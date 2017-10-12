@@ -13,9 +13,7 @@ class Deck():
 	def shuffle(self):
 		random.shuffle(self.card_list)
 		
-	def cut(self):
-		print("Where do you want to cut ? Choose a position betwenn 1 and 31"+"\n"+"______________________________________________________________________")
-		coupe = input()
+	def cut(self, coupe):
 		if (coupe<1) or (coupe>31) :
 			coupe = random.randint(1,31)
 		print("You choosed an invalid place, I choosed randomly for you the place "+str(coupe))
