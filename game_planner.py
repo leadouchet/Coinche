@@ -22,8 +22,6 @@ def binding_to_string(binding):
         return(CONTRACT_VALUES[binding[1]]+" "+COLOR_LIST[binding[0]])
         
 
-
-
 def Game_planner():
     players = Players()
     players.order_players()
