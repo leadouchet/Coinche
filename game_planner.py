@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+#COUCOU FLORIANT je tente de comprendre git et visual studio
+
 
 #class
 from player import Player
