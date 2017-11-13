@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#COUCOU FLORIANT je tente de comprendre git et visual studio
+#COUCOU LEA je tente de comprendre git et visual studio
 
 
 #class
