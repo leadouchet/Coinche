@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#COUCOU LEA je tente de comprendre git et visual studio. Je veux foutre la merde
+#COUCOU LEA je tente de comprendre git et visual studio. Je veux foutre la merde. Lalalalalalalala
 
 
 #class
