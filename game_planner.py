@@ -51,13 +51,13 @@ def Game_planner():
             
             os.system('cls' if os.name == 'nt' else 'clear')
             raw_input("\n"+"Player "+from_number_to_place[speaker]+" it's your turn, type enter to see your cards :" )
-            print finisher
+            print(finisher)
             print(table_game(bindings,(dealer+1)%4))
             print(players[speaker].card)
             print("\n"+"Player "+from_number_to_place[speaker]+" do you want to make a binding ? Yes (1) No (2)")
             wanna_play = input()
             if wanna_play == 1 :
-                print SHOW_BINDINGS
+                print(SHOW_BINDINGS)
                 contract = input()
                 contracted_team = from_number_to_team[speaker] #can take value 0 or 1 
                 finisher = 0
