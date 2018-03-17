@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #COUCOU LEA je tente de comprendre git et visual studio. On essaie une deuxieme fois
-
+#Coucou Léa, je fais pareil avec Atom
 
 #class
 from player import Player
@@ -13,16 +13,16 @@ from global_values import *
 
 #packages
 import random
-import os 
+import os
 
 
 
 def binding_to_string(binding):
     if binding == None:
         return("Pass")
-    else : 
+    else :
         return(CONTRACT_VALUES[binding[1]]+" "+COLOR_LIST[binding[0]])
-        
+
 
 def Game_planner():
     players = Players()
@@ -32,13 +32,13 @@ def Game_planner():
     cards = Deck()
     cards.shuffle()
     while teams_points[0]<2000 and teams_points[1]<2000 :
-        
+
         #Cards distribution
         lots = cards.distribute_deck()
         for i in range (4) :
             players[(dealer + 1 + i)%4].card = lots[i]
         players.order_cards()
-        
+
         #Binddings
         bindings = []
         finisher = -1 #on first tour, 4 people have to pass so that binddings end
@@ -50,7 +50,7 @@ def Game_planner():
         contracted_team = None
         while finisher<3:
         #while not DEBBUG :
-            
+
             os.system('cls' if os.name == 'nt' else 'clear')
             raw_input("\n"+"Player "+from_number_to_place[speaker]+" it's your turn, type enter to see your cards :" )
             print(finisher)
@@ -61,17 +61,17 @@ def Game_planner():
             if wanna_play == 1 :
                 print(SHOW_BINDINGS)
                 contract = input()
-                contracted_team = from_number_to_team[speaker] #can take value 0 or 1 
+                contracted_team = from_number_to_team[speaker] #can take value 0 or 1
                 finisher = 0
                 #DEBBUG = True
 
             else :
                 finisher += 1
             bindings.append(binding_to_string(contract))
-                    
+
             speaker = (speaker + 1)%4
-        
-        if contract!=None :      
+
+        if contract!=None :
         #Round
             print("oooooooooooooo"+"\n"+"o    GAME     o" + "\n""oooooooooooooo")
             current_round = Round_coinche(contract[0],contract[1],contracted_team,dealer,players)
@@ -85,8 +85,8 @@ def Game_planner():
 		#update
             dealer = (dealer + 1)%4
             print(teams_points)
-		
-        else : 
+
+        else :
             print("Nobody made a binding, let's distribute again")
 
 
@@ -106,7 +106,3 @@ print(players[speaker].card)
 print("\n"+"Player "+from_number_to_place[speaker]+" do you want to make a binding ? Yes (1) No (2)")
 """
 Game_planner()
-
-
-
-        
